@@ -9,7 +9,7 @@
 
 Скачайте проект с github:
 ```
-git clone https://github.com/
+https://github.com/FootballOnlooker/Learn-Python-project
 ```
 
 Создайте виртуальное окружение и установите зависимости:
@@ -17,15 +17,25 @@ git clone https://github.com/
 pip install -r requirements.txt
 ```
 
-Создайте файл config.py и задайте в нем базовые переменные:
+Создайте файл `config.py` в директории \app и задайте в нем базовые переменные:
+(скопируйте код ниже в `config.py`, подставив свои значения)
 ```
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'Ваше значение'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'your_name_db.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 ```
 
 ## Запуск программы
 
-Для запуска программы запустите файл `__init__.py`, произойдет запуск
-сервера и выведет IP-адрес на экран:
+Для запуска программы на ОС Windows из коммандной строки запустите файл `run.bat`, произойдет запуск
+сервера и выведет IP-адрес на экран. Для запуска программы на ОС Linux/MacOs, в корне проекта выполните 
+в консоли команду `chmod +x run.sh` - это сделает файл исполняемым. Далее для запуска проекта нужно
+ писать в корне проекта в консоле `./run.sh`.
 ```
-python __init__.py
+- для ОС Windows: run.bat
+- для ОС Linux/MacOs: ./run.sh
 ```
