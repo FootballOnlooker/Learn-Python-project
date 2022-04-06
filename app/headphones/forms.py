@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired
 
+from app.headphones.models import Headphone
 
 class AddHeadphoneForm(FlaskForm):
     brand_id = SelectField('Brand', coerce=int, Validator=[DataRequired()])

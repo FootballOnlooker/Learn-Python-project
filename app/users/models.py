@@ -2,8 +2,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 from app.db import db
-from app.headphones.models import Headphone
-
+#from app.headphones.models import Headphone
+#from app.headphones.forms import AddHeadphoneForm
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     role = db.Column(db.String(10), index=True)
-    user_choice_id = db.Column(db.Integer, db.ForeignKey('user_choices.id'))
+    #user_choice_id = db.Column(db.Integer, db.ForeignKey('user_choices.id'))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -31,7 +31,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User name={} id={}>'.format(self.username, self.id)
 
-
+"""
 class UserChoice(db.Model):
      __tablename__ = 'user_choices'
 
@@ -41,3 +41,4 @@ class UserChoice(db.Model):
 
     def __repr__(self):
         return '<User_choice {}>'.format(self.email)
+"""
