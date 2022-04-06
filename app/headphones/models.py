@@ -1,5 +1,6 @@
 from app.db import db
 
+
 class Brand(db.Model):
     __tablename__ = 'brands'
     

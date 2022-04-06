@@ -1,3 +1,4 @@
+"""
 from flask import request
 from werkzeug.urls import url_parse
 from flask import Blueprint, render_template, flash, redirect, url_for
@@ -5,12 +6,12 @@ from flask_login import current_user, login_user, logout_user
 
 from app.headphones.forms import AddHeadphoneForm
 from app.db import db
-from app.headphones.models import 
+from app.headphones.models import Headphone
 
 blueprint = Blueprint('user', __name__, url_prefix='/')
 
 
-@blueprint.route('/login', methods=['GET', 'POST'])
+blueprint.route('/login', methods=['GET', 'POST'])
 def login_page(): 
     if current_user.is_authenticated:
         return redirect(url_for('main.index_page'))
@@ -28,7 +29,7 @@ def login_page():
     return render_template('login.html', title='Sign In', form=form)
 
 
-@blueprint.route('/logout')
+#@blueprint.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('main.index_page'))
@@ -52,3 +53,5 @@ def register():
 @blueprint.route('/add_hp')
 def add_headphones():
     pass
+
+"""
