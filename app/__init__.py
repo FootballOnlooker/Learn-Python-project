@@ -7,6 +7,7 @@ from .config import Config
 from .main import blueprint as main_blueprint
 from .users.views import blueprint as user_blueprint
 from .admins.views import blueprint as admin_blueprint
+from .headphones.views import blueprint as headphone_blueprint
 from .db import db
 
 
@@ -19,6 +20,7 @@ def create_app():
     app.register_blueprint(main_blueprint)
     app.register_blueprint(user_blueprint)
     app.register_blueprint(admin_blueprint)
+    app.register_blueprint(headphone_blueprint)
 
     login_manager = LoginManager(app)
     login_manager.login_view = 'user.login_page'

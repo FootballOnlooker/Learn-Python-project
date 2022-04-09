@@ -12,7 +12,7 @@ class Brand(db.Model):
         return '<Brand {}>'.format(self.name)
 
 class HeadphoneType(db.Model):
-    __tablename__ = 'headphones_types'
+    __tablename__ = 'types'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
