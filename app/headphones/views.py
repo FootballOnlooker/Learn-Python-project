@@ -1,54 +1,52 @@
-from flask import request
-from werkzeug.urls import url_parse
-from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import current_user, login_user, logout_user
+from flask import abort, Blueprint, render_template, flash, redirect, url_for
 
-from app.headphones.forms import AddHeadphoneForm
 from app.db import db
-from app.headphones.models import 
+from app.users.decorators import admin_required
+from app.headphones.models import Brand, HeadphoneType, Color, AddImage, Headphone
+from app.headphones.forms import AddHeadphoneForm
+from app.headphones.models import Headphone
 
-blueprint = Blueprint('user', __name__, url_prefix='/')
+blueprint = Blueprint('headphone', __name__, url_prefix='/')
 
+@blueprint.route('/headphones/<int:headphones_id>')
+def catalog_headphone(headphone_id):
+    hp = Headphone.query.filter(Headphone.id == headphone_id).first()
 
-@blueprint.route('/login', methods=['GET', 'POST'])
-def login_page(): 
-    if current_user.is_authenticated:
-        return redirect(url_for('main.index_page'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid email or password')
-            return redirect(url_for('user.login_page'))
-        login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.index_page')
-        return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    if not hp:
+        abort(404)
 
+    return render_template('index.html', page_title=hp.title, headphones=hp)
 
-@blueprint.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('main.index_page'))
-
-
-@blueprint.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.index_page'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('user.login_page'))
-    return render_template('register.html', title='Register', form=form)
-
+@blueprint.route('/add_hp', methods=['GET', 'POST'])
 @admin_required
-@blueprint.route('/add_hp')
 def add_headphones():
-    pass
+    form = AddHeadphoneForm()
+    if form.validate_on_submit():
+        headphones = Headphone(
+                    brand_id=form.brand.data,
+                    type_id=form.type.data,
+                    color_id=form.color.data,
+                    image_id=form.image.data,
+                    model_name=form.model.data,
+                    price=form.price_cost.data,
+                    lifetime=form.life_time.data,
+                    max_power=form.maxpower.data,
+                    weight=form.weight_numeric.data,
+                    impedance=form.impedance_numeric.data,
+                    sensitivity=form.sensitivity_numeric.data,
+                    lifetime_case=form.lifetime_case_numeric.data,
+                    is_nc=form.is_nc_bool.data,
+                    is_deleted=form.is_deleted_bool.data)                    
+        db.session.add(headphones)
+        db.session.commit()
+        flash('Success! This headphone has been added!')
+        return redirect(url_for('headphone.add_headphones'))
+    return render_template('add_hp.html', title='Add headphones', form=form)
+
+def save_tables():
+    db.session.add(Brand)
+    db.session.add(HeadphoneType)
+    db.session.add(Color)
+    db.session.add(AddImage)
+    db.session.add(Headphone)
+    db.session.commit()

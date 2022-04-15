@@ -2,8 +2,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 from app.db import db
-from app.headphones.models import Headphone
-
+#from app.headphones.models import Headphone
+#from app.headphones.forms import AddHeadphoneForm
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -30,15 +30,3 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User name={} id={}>'.format(self.username, self.id)
 
-
-"""
-class UserChoice(db.Model):
-     __tablename__ = 'user_choices'
-     
-    id = db.Column(db.Integer, primary_key=True)
-    headphone_id = db.Column(db.Integer, db.ForeignKey('headphones.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    def __repr__(self):
-        return '<User_choice {}>'.format(self.email)
-"""

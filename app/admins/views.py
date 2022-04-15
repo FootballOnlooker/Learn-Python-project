@@ -9,4 +9,7 @@ blueprint = Blueprint('admin', __name__, url_prefix='/')
 def admin_index():
     title = 'Tool bar'
     return render_template('admin.html', page_title=title)
-   
+
+
+
+    
