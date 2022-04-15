@@ -1,12 +1,12 @@
-from app.db import db
+from sqlalchemy.orm import relationship
 
+from app.db import db
 
 class Brand(db.Model):
     __tablename__ = 'brands'
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    headphones = db.relationship('Headphone', backref='brand', lazy='dynamic')
 
     def __repr__(self):
         return '<Brand {}>'.format(self.name)
@@ -16,7 +16,6 @@ class HeadphoneType(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    headphones = db.relationship('Headphone', backref='type', lazy='dynamic')
     
     def __repr__(self):
         return '<HeadphoneType {}>'.format(self.name)
@@ -26,7 +25,6 @@ class Color(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    headphones = db.relationship('Headphone', backref='color', lazy='dynamic')
 
     def __repr__(self):
         return '<Color {}>'.format(self.name)
@@ -38,10 +36,14 @@ class AddImage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String, nullable=False)
     image_path = db.Column(db.String, nullable=False)
-    headphones = db.relationship('Headphone', backref='image', lazy='dynamic')
 
     def __repr__(self):
-        return '<Image {}>'.format(self.name)
+        return '<AddImage {}>'.format(self.file_name)
+
+    @property
+    def get_image(self):
+        img = AddImage.query.get(self.image_id)
+        return f'{img.image_path}/{img.file_name}'
 
 
 class Headphone(db.Model):
@@ -62,6 +64,12 @@ class Headphone(db.Model):
     lifetime_case = db.Column(db.Integer)
     is_nc = db.Column(db.Boolean)
     is_deleted = db.Column(db.Boolean)
+
+    brand = db.relationship('Brand', lazy='joined')
+    type = db.relationship('HeadphoneType', lazy='joined')
+    color = db.relationship('Color', lazy='joined')
+    image = db.relationship('AddImage', lazy='joined')
+
 
     def __repr__(self):
         return '<Headphone {}>'.format(self.model_name)

@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Add headphone</h1>
+    <h1>Add headphone in the database:</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.brand_id.label }}<br>
-            {{ form.brand_id(size=32) }}<br>
+            {{ form.brand_id }}<br>
         </p>
         <p>
             {{ form.type_id.label }}<br>
-            {{ form.type_id(size=32) }}<br>
+            {{ form.type_id }}<br>
         </p>
         <p>
             {{ form.color_id.label }}<br>
-            {{ form.color_id(size=32) }}<br>
+            {{ form.color_id }}<br>
         </p>
         <p>
             {{ form.image_id.label }}<br>
-            {{ form.image_id(size=32) }}<br>
+            {{ form.image_id }}<br>
         </p>
         <p>
             {{ form.model_name.label }}<br>
@@ -35,6 +35,30 @@
         <p>
             {{ form.max_power.label }}<br>
             {{ form.max_power(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.weight.label }}<br>
+            {{ form.weight(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.impedance.label }}<br>
+            {{ form.impedance(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.sensitivity.label }}<br>
+            {{ form.sensitivity(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.lifetime_case.label }}<br>
+            {{ form.lifetime_case(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.is_nc.label }}<br>
+            {{ form.is_nc(size=32) }}<br>
+        </p
+        <p>
+            {{ form.is_deleted.label }}<br>
+            {{ form.is_deleted(size=32) }}<br>
         </p>
         <p>{{ form.submit() }}</p>
     </form>
