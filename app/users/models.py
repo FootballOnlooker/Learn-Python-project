@@ -24,6 +24,11 @@ class User(UserMixin, db.Model):
         return '<User {}>'.format(self.email)
 
     @property
+    def get_users(self):
+        user = User.query.get(self.email, self.role)
+        return user.email
+    
+    @property
     def is_admin(self):
         return self.role == 'admin'
 

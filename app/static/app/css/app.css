@@ -5,9 +5,9 @@ body{
 aside{
     float: left;
     background: #181818;
-    width: 20%;
+    width: 210px;
     padding: 2.5%;
-    height: 100vh;
+    height: 300vh;
     color:#fff;
     border-right: 5px solid #4d4d4d;
 }
@@ -52,7 +52,7 @@ aside ul li:hover, aside ul a:hover{
     color: #fff;
     margin-top: 100px;
     text-align: center;
-    width: 75%;
+    width: 87%;
 }
 
 .features h1{font-size: 50px;}
@@ -69,7 +69,10 @@ aside ul li:hover, aside ul a:hover{
 
 main {
     color:#fff;
+    padding: 80px;
 }
+
+
 
 body label{
     color: #fff;
@@ -81,4 +84,19 @@ form{
 
  h1{
     text-align: center;
+}
+
+table{
+    text-align: center;
+    background:#fff;
+    width: 60%
+}
+
+table img{
+    width: 80px;
+    float: left;
+}
+
+.container{
+    width: 98% 
 }
