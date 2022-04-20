@@ -3,7 +3,7 @@ from werkzeug.urls import url_parse
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user
 
-from app.users.forms import LoginForm, RegistrationForm
+from app.users.forms import  LoginForm, RegistrationForm
 from app.db import db
 from app.users.models import User
 
