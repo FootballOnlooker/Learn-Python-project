@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <div class="features">
   <img src="{{ url_for('static', filename='app/img/мужик.jpg') }}">
   <h1>Tired of the heavy choice of suitable headphones? Tangled in wires?</h1>
@@ -21,6 +22,11 @@
         <thead>
         <tr>
           <th scope="col">image</th>
+    <h1>{% if current_user.is_anonymous %}Welcom, guest!{% else %}Welcom, {{ current_user.email }}!{% endif %}</h1>
+    <img src="{{ url_for('static', filename='Beats_solo_pro.jpg')}}"/>
+    <table class="table">
+        <thead>
+        <tr>
           <th scope="col">Brand</th>
           <th scope="col">Model</th>
           <th scope="col">Type</th>
@@ -37,9 +43,12 @@
       </thead>
       <tbody>
         {% for headphone in headphones %}
+
         <div class="col">
         <tr>
-          <td><img src="{{ url_for('static', filename=headphone.image.file_name) }}"></td>
+          <td><img src="{{ url_for('static', filename=headphone.image.file_name) }}"></td
+        <tr>
+
         <td>{{ headphone.brand.name }}</td>
         <td>{{ headphone.model_name }}</td>
         <td>{{ headphone.type.name }}</td>
@@ -52,6 +61,7 @@
         <td>{{ headphone.sensitivity }}</td>
         <td>{{ headphone.lifetime_case }}</td>
         <td>{{ headphone.is_nc}}</td>
+
         </tr></div>
     {% endfor %}
     </tbody>
@@ -59,38 +69,4 @@
     </div>
 
    {% endblock %}
-
-        <!--<div class="col">
-          <p>{{ item }}</p>
-        </div>
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-      </div>
-      <div class="row align-items-center">
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-      </div>
-      <div class="row align-items-end">
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-        <div class="col">
-          <p>{{ item }}</p>
-        </div>
-      </div>
-    </div>-->
-  
-
-
 
